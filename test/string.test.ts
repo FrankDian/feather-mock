@@ -22,3 +22,10 @@ it('string params', () => {
   expect(str3.length).toBeGreaterThanOrEqual(10);
   expect(str3.length).toBeLessThanOrEqual(40);
 });
+
+// test wrong params
+it('string wrong params', () => {
+  const str1 = Random.string('11');
+  expect(str1.length).toBeLessThanOrEqual(STRING_MAX_LEN);
+  expect(str1.length).toBeGreaterThanOrEqual(STRING_MIN_LEN);
+});

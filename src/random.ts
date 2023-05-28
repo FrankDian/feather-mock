@@ -1,5 +1,6 @@
 import { STRING_MAX_LEN, STRING_MIN_LEN } from "./utils/const";
-import * as _ from "lodash"
+import _ from "lodash";
+import dayjs from 'dayjs';
 
 /**
  * 返回一个随机整数值
@@ -46,8 +47,36 @@ const boolean = () : boolean => {
   return Math.random() >= 0.5;
 };
 
+/**
+ * 生成随机Date
+ * @returns date
+ */
+const randomDate = () => {
+  const min = new Date(0);
+  const max = new Date();
+  return new Date(Math.random() * (max.getTime() - min.getTime()));
+}
+
+/**
+ * 生成随机日期(YYYY-MM-DD)
+ */
+const date = () => {
+  const curDate = randomDate();
+  return dayjs(curDate).format('YYYY-MM-DD');
+}
+
+/**
+ * 生成随机时间（HH:mm:ss）
+ */
+const time = () => {
+  const curDate = randomDate();
+  return dayjs(curDate).format('HH:mm:ss');
+}
+
 export const Random = {
   integer,
   string,
-  boolean
+  boolean,
+  date,
+  time,
 };
