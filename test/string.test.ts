@@ -30,7 +30,7 @@ it('string params', () => {
     max: 40,
     len: 33
   });
-  expect(res4.length).toEqual(33);
+  expect(res4.length).toBe(33);
 });
 
 // test wrong params

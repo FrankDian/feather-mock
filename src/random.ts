@@ -83,19 +83,25 @@ const randomDate = () => {
 };
 
 /**
- * 生成随机日期(YYYY-MM-DD)
+ * 生成随机日期
+ * @param formatStr 日期格式，参考dayjs官网，默认格式 YYYY-MM-DD
+ * @returns 日期
  */
-const date = () => {
+const date = (formatStr?: string) => {
   const curDate = randomDate();
-  return dayjs(curDate).format('YYYY-MM-DD');
+  const format = formatStr ? formatStr : 'YYYY-MM-DD';
+  return dayjs(curDate).format(format);
 };
 
 /**
- * 生成随机时间（HH:mm:ss）
+ * 生成随机时间
+ * @param formatStr 时间格式，参考dayjs官网，默认格式 HH:mm:ss
+ * @returns 时间
  */
-const time = () => {
+const time = (formatStr?: string) => {
   const curDate = randomDate();
-  return dayjs(curDate).format('HH:mm:ss');
+  const format = formatStr ? formatStr : 'HH:mm:ss';
+  return dayjs(curDate).format(format);
 };
 
 export const Random = {
