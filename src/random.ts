@@ -28,10 +28,11 @@ interface stringOption {
   max?: number; // 最大长度
   len?: number; // 固定长度（优先级高）
 }
+
 /**
  * 返回一个随机字符串
- * @param min 最短长度
- * @param max 最大长度，不超过 STRING_MAX_LEN
+ * @param opt options
+ * @returns string
  */
 const string = (opt?: stringOption): string => {
   const strLen = _getLength(opt || {});
