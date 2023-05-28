@@ -15,17 +15,30 @@ it('string params', () => {
   expect(str1.length).toBeLessThanOrEqual(STRING_MAX_LEN);
   expect(str1.length).toBeGreaterThanOrEqual(STRING_MIN_LEN);
 
-  const str2 = Random.string(5);
+  const str2 = Random.string({min: 5});
   expect(str2.length).toBeGreaterThanOrEqual(5);
 
-  const str3 = Random.string(10, 40);
+  const str3 = Random.string({
+    min: 10,
+    max: 40
+  });
   expect(str3.length).toBeGreaterThanOrEqual(10);
   expect(str3.length).toBeLessThanOrEqual(40);
+
+  const res4 = Random.string({
+    min: 10,
+    max: 40,
+    len: 33
+  });
+  expect(res4.length).toEqual(33);
 });
 
 // test wrong params
 it('string wrong params', () => {
-  const str1 = Random.string('11');
+  const str1 = Random.string({
+    min: 'asdfa',
+    max: 'esifen'
+  });
   expect(str1.length).toBeLessThanOrEqual(STRING_MAX_LEN);
   expect(str1.length).toBeGreaterThanOrEqual(STRING_MIN_LEN);
 });
