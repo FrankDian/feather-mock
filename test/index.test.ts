@@ -1,6 +1,6 @@
 import { it, expect } from 'vitest';
-import { foo } from '../src';
+import FMock from '../src/index';
 
-it('simple', () => {
-  expect(foo).toBe('foo');
+it('integer', () => {
+  expect(FMock.Random.integer).toBeInstanceOf(Function);
 });

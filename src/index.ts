@@ -1,8 +1,11 @@
-export const foo = 'foo'
+import { Random } from './random';
 
-export const getFoo = () => 'foo'
+const FMock = {
+  Random,
+}
 
-// 支持生成随机字符串、数字、布尔值、日期、时间等基本数据类型。
+export default FMock;
+
 // 支持生成对象、数组等复杂数据类型。
 // string/boolean/number/date/time/object/array
 // MOCK.mock('')
