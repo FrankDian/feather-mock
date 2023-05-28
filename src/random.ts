@@ -6,7 +6,7 @@ import * as _ from "lodash"
  * @param min 最小值
  * @param max 最大值
  */
-const integer = (min?: number | string, max?: number | string) => {
+const integer = (min?: number | string, max?: number | string) : number => {
   const minVal = typeof min !== 'undefined' ? parseInt(min.toString(), 10) : Number.MIN_SAFE_INTEGER;
   const maxVal = typeof max !== 'undefined' ? parseInt(max.toString(), 10) : Number.MAX_SAFE_INTEGER;
   return Math.round(Math.random() * (maxVal - minVal) + minVal);
@@ -27,7 +27,7 @@ const char = () => {
  * @param min 最短长度
  * @param max 最大长度，不超过 STRING_MAX_LEN
  */
-const string = (min?: number, max?: number) => {
+const string = (min?: number, max?: number) : string => {
   if(!_.isInteger(max) || !max || max > STRING_MAX_LEN) max = STRING_MAX_LEN;
   if(!_.isInteger(min) || !min || min < STRING_MIN_LEN) min = STRING_MIN_LEN;
   const strLen = integer(min, max);
@@ -38,7 +38,16 @@ const string = (min?: number, max?: number) => {
   return res;
 };
 
+/**
+ * 返回随机的布尔值
+ * @returns true | false
+ */
+const boolean = () : boolean => {
+  return Math.random() >= 0.5;
+};
+
 export const Random = {
   integer,
-  string
+  string,
+  boolean
 };
