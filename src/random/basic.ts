@@ -25,7 +25,7 @@ const integer = (opt?: integerOption): number => {
 const char = () => {
   // 字符串集
   const allChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charsLen = allChar.length;
+  const charsLen = allChar.length - 1;
   return allChar.charAt(integer({ min: 0, max: charsLen }));
 };
 
