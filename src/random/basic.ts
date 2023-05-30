@@ -2,12 +2,18 @@ import { STRING_MAX_LEN, STRING_MIN_LEN } from '../utils/const';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 
+interface integerOption {
+  min?: number; // 最短长度
+  max?: number; // 最大长度
+}
+
 /**
  * 返回一个随机整数值
  * @param min 最小值
  * @param max 最大值
  */
-const integer = (min?: number | string, max?: number | string): number => {
+const integer = (opt?: integerOption): number => {
+  const { min, max } = opt || {};
   const minVal = typeof min !== 'undefined' ? parseInt(min.toString(), 10) : Number.MIN_SAFE_INTEGER;
   const maxVal = typeof max !== 'undefined' ? parseInt(max.toString(), 10) : Number.MAX_SAFE_INTEGER;
   return Math.round(Math.random() * (maxVal - minVal) + minVal);
@@ -20,7 +26,7 @@ const char = () => {
   // 字符串集
   const allChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charsLen = allChar.length;
-  return allChar.charAt(integer(0, charsLen));
+  return allChar.charAt(integer({ min: 0, max: charsLen }));
 };
 
 interface stringOption {
@@ -61,7 +67,7 @@ const _getLength = (opt: stringOption): number => {
 
   if (!_.isInteger(max) || !max || max > STRING_MAX_LEN) max = STRING_MAX_LEN;
   if (!_.isInteger(min) || !min || min < STRING_MIN_LEN) min = STRING_MIN_LEN;
-  return integer(min, max);
+  return integer({min, max});
 }
 
 /**
