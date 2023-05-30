@@ -1,5 +1,5 @@
-import Random from './random';
-import { getType } from './utils/utils';
+import Random from '../random';
+import { getType } from '../utils/utils';
 
 const mock = (options: any) => {
   const type = getType(options);
