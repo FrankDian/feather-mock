@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import array from './array';
 import {
   integer,
   string,
@@ -18,6 +19,7 @@ interface Random {
   define: Function,
   email: Function,
   phone: Function,
+  array: Function,
 }
 
 /**
@@ -49,7 +51,8 @@ const Random: Random = {
   // todo 补充 api 文档
   email,
   phone,
-  define: defineFunc
+  define: defineFunc,
+  array,
 };
 
 export default Random;
