@@ -30,6 +30,7 @@ it('string params', () => {
     max: 40,
     len: 33
   });
+  // Todo 概率性错误
   expect(res4.length).toBe(33);
 });
 
