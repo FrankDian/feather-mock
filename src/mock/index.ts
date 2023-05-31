@@ -1,7 +1,8 @@
 import Random from '../random';
-import { getType } from '../utils/utils';
+import { getType, _parseOptions } from '../utils/utils';
+import _dealArray from './array';
 
-const mock = (options: any) => {
+const mock = (options: any): any => {
   const type = getType(options);
   let res;
   switch (type) {
@@ -12,13 +13,17 @@ const mock = (options: any) => {
       res = _dealObject(options);
       break;
     case 'array':
-      res = Random.array({ raw: options });
+      res = _dealArray({raw: options});
       break;
     case 'function':
       res = options.call();
       break;
-    default:
+    case 'null':
+    case 'undefined':
       res = type;
+    break;
+    default:
+      res = options;
       break;
   }
   return res;
@@ -45,7 +50,7 @@ const _dealObject = (options: object) => {
   const res = {};
   Object.keys(options).forEach(key => {
     const val = options[key];
-    const opt = _parsekeyValue(key, val);
+    const opt = _parseOptions(key, val);
     const { name } = opt;
     const type = getType(options[key]);
     let actualVal;
@@ -57,7 +62,7 @@ const _dealObject = (options: object) => {
         actualVal = _dealObject(val);
         break;
       case 'array':
-        actualVal = Random.array(opt);
+        actualVal = _dealArray(opt);
         break;
       case 'function':
         actualVal = val.call(null, opt);
@@ -68,33 +73,6 @@ const _dealObject = (options: object) => {
         break;
     }
     res[name] = actualVal;
-  })
-  return res;
-}
-
-// 解析object 的 key 和 value，转化为参数对象
-const _parsekeyValue = (str: string, raw: any) => {
-  const params = str.split('|');
-  const name = params[0];
-  const rule = _parseRule(params[1]);
-  return {
-    ...rule,
-    name,
-    raw
-  }
-}
-
-/**
- * 将rule 字符串解析成参数对象
- * @param str rule 字符串（url 传参形式 a=xxx&b=xxx）
- * @returns 参数
- */
-function _parseRule (str: string = ''): object {
-  const res = {};
-  const arr = str.split('&');
-  arr.forEach(item => {
-    const paramArr = item.split('=');
-    res[paramArr[0]] = paramArr[1];
   })
   return res;
 }
