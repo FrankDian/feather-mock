@@ -17,7 +17,7 @@ interface arrayOpt {
 const _dealArray = function(opt: arrayOpt) {
   // 参数处理
   let finalCount = 1;
-  const { min, max, count, raw = [] } = opt || {};
+  const { min, max, count, raw = [] } = opt;
   let minVal = typeof min !== 'undefined' ? parseInt(min.toString(), 10) : 1;
   if(minVal < ARRAY_MIN_COUNT) minVal = ARRAY_MIN_COUNT;
   let maxVal = typeof max !== 'undefined' ? parseInt(max.toString(), 10) : 1;

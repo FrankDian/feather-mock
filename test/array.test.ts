@@ -1,5 +1,6 @@
 import { it, expect } from 'vitest';
 import FMock from '../src/index';
+import { ARRAY_MAX_COUNT } from '../src/utils/const';
 const mock = FMock.mock;
 
 // function type
@@ -10,8 +11,14 @@ it('array type', () => {
 
 // test params
 it('array params', () => {
-  const res2 = mock([1, 2, 3]);
-  expect(res2).toEqual([1, 2, 3]);
+  const res1 = mock([1, 2, 3]);
+  expect(res1).toEqual([1, 2, 3]);
+
+  const res2 = mock({
+    'arr|min=2&max=7': [1, 2]
+  });
+  expect(res2.arr.length).toBeLessThanOrEqual(14);
+  expect(res2.arr.length).toBeGreaterThanOrEqual(4);
 
   const res3 = mock({
     'arr|count=3': [{
@@ -25,4 +32,20 @@ it('array params', () => {
       phone: expect.stringMatching(/^1[34578]\d{9}$/)
     }])
   });
+});
+
+// test wrong params
+it('array wrong params', () => {
+  const res1 = mock({
+    'arr|min=-1': [1, 2]
+  });
+  expect(res1.arr).toEqual([1, 2]);
+
+  const res2 = mock({
+    'arr|max=99990': [1]
+  });
+  expect(res2.arr.length).toBeLessThanOrEqual(ARRAY_MAX_COUNT);
+
+  expect(mock([])).toBeInstanceOf(Array);
+
 });
