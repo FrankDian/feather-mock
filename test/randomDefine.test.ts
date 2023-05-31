@@ -14,7 +14,6 @@ it('Random.define test', () => {
       return 'testDefine';
     }
   });
-  // TODO 报错如何解决
   expect(Random.testDefine()).toBe('testDefine');
 });
 
