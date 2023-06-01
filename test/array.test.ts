@@ -48,4 +48,9 @@ it('array wrong params', () => {
 
   expect(mock([])).toBeInstanceOf(Array);
 
+  const res3 = mock(['@phone']);
+  expect(res3).toEqual([
+    expect.stringMatching(/^1[34578]\d{9}$/)
+  ])
+
 });
