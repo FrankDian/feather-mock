@@ -42,7 +42,7 @@ it('array wrong params', () => {
   expect(res1.arr).toEqual([1, 2]);
 
   const res2 = mock({
-    'arr|max=99990': [1]
+    'arr|max=1001': [1]
   });
   expect(res2.arr.length).toBeLessThanOrEqual(ARRAY_MAX_COUNT);
 
