@@ -30,9 +30,9 @@ const char = () => {
 };
 
 interface stringOption {
-  min?: number; // 最短长度
-  max?: number; // 最大长度
-  len?: number; // 固定长度（优先级高）
+  min?: number | string; // 最短长度
+  max?: number | string; // 最大长度
+  len?: number | string; // 固定长度（优先级高）
 }
 
 /**
@@ -56,6 +56,9 @@ const string = (opt?: stringOption): string => {
  */
 const _getLength = (opt: stringOption): number => {
   let { min = STRING_MIN_LEN, max = STRING_MAX_LEN, len } = opt;
+  min = parseInt('' + min, 10);
+  max = parseInt('' + max, 10);
+  len = parseInt('' + len, 10);
   // 校验长度
   if ( typeof len !== 'undefined'
     && _.isInteger(len)
