@@ -3,5 +3,5 @@ import FMock from '../src/index';
 const Mock = FMock.mock;
 
 it('integer', () => {
-  expect(Mock('@integer')).toBeInstanceOf(Function);
+  expect(Mock('@integer')).toBeTypeOf('number');
 });
