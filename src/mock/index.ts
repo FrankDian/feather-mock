@@ -1,8 +1,9 @@
 import Random from '../random';
 import { getType, _parseOptions } from '../utils/utils';
 import _dealArray from './array';
+import _ from 'lodash';
 
-const mock = (options: any): any => {
+export const mock = (options: any): any => {
   const type = getType(options);
   let res;
   switch (type) {
@@ -27,6 +28,26 @@ const mock = (options: any): any => {
       break;
   }
   return res;
+}
+
+/**
+* 注册自定义函数
+* @param option 键值对形式，值必须为函数
+* @returns void
+*/
+export const define = (option: object): void => {
+ if(!_.isPlainObject(option)) {
+   throw new Error(`Wrong option!`);
+ }
+ Object.keys(option).forEach(key => {
+   if(Random[key]) {
+     throw new Error(`${key} has already been defined!`);
+   }
+   if(!_.isFunction(option[key])) {
+     throw new Error(`Definition for ${key} is not a funciton!`);
+   }
+   Random[key] = option[key];
+ })
 }
 
 /**
@@ -77,5 +98,3 @@ const _dealObject = (options: object) => {
   })
   return res;
 }
-
-export default mock;
