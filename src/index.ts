@@ -1,8 +1,11 @@
 import mock from './mock';
-import Random from './random';
 
+// todo 生成身份证号码
+// 单测不对，错误例子
+// 类型完善
+// define 函数修改
+// 打包问题，依赖没有打入
 const FMock = {
-  Random,
   mock,
 }
 

@@ -37,9 +37,10 @@ const mock = (options: any): any => {
  */
 const _dealString = (str: string, opt: object = {}) => {
   if(str.startsWith('@')) {
-    const mark = str.substring(1);
-    if(Random[mark]) {
-      return Random[mark](opt);
+    const opt = _parseOptions(str.substring(1), '');
+    const { name } = opt;
+    if(Random[name]) {
+      return Random[name](opt);
     }
   }
   return str;

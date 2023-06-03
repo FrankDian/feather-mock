@@ -46,7 +46,6 @@ const Random: Random = {
   boolean,
   date,
   time,
-  // todo 补充 api 文档
   email,
   phone,
   define: defineFunc,
