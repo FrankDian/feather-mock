@@ -5,6 +5,7 @@ import mock from './mock';
 // 类型完善
 // define 函数修改
 // 打包问题，依赖没有打入
+// todo 改成类写法，AOP
 const FMock = {
   mock,
 }

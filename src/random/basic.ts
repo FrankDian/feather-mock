@@ -1,4 +1,4 @@
-import { STRING_MAX_LEN, STRING_MIN_LEN } from '../utils/const';
+import { DATE_DEFAULT_FOMAT, STRING_MAX_LEN, STRING_MIN_LEN, TIME_DEFAULT_FOMAT } from '../utils/const';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 
@@ -91,14 +91,17 @@ const randomDate = () => {
   return new Date(Math.random() * (max.getTime() - min.getTime()));
 };
 
+interface formatOpt {
+  format?: string
+}
 /**
  * 生成随机日期
  * @param formatStr 日期格式，参考dayjs官网，默认格式 YYYY-MM-DD
  * @returns 日期
  */
-const date = (formatStr?: string) => {
+const date = (opt: formatOpt) => {
+  const { format = DATE_DEFAULT_FOMAT } = opt;
   const curDate = randomDate();
-  const format = formatStr ? formatStr : 'YYYY-MM-DD';
   return dayjs(curDate).format(format);
 };
 
@@ -107,9 +110,9 @@ const date = (formatStr?: string) => {
  * @param formatStr 时间格式，参考dayjs官网，默认格式 HH:mm:ss
  * @returns 时间
  */
-const time = (formatStr?: string) => {
+const time = (opt: formatOpt) => {
+  const { format = TIME_DEFAULT_FOMAT } = opt;
   const curDate = randomDate();
-  const format = formatStr ? formatStr : 'HH:mm:ss';
   return dayjs(curDate).format(format);
 };
 
