@@ -9,17 +9,11 @@ import {
 import email from './email';
 import phone from './phone';
 
-interface Random {
-  integer: Function,
-  string: Function,
-  boolean: Function,
-  date: Function,
-  time: Function,
-  email: Function,
-  phone: Function,
-}
+interface RandomInterface {
+  [key: string]: Function,
+};
 
-const Random: Random = {
+const Random: RandomInterface = {
   integer,
   string,
   boolean,

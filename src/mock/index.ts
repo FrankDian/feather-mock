@@ -30,12 +30,15 @@ export const mock = (options: any): any => {
   return res;
 }
 
+interface defineOption {
+  [key: string]: Function
+}
 /**
 * 注册自定义函数
 * @param option 键值对形式，值必须为函数
 * @returns void
 */
-export const define = (option: object): void => {
+export const define = (option: defineOption): void => {
  if(!_.isPlainObject(option)) {
    throw new Error(`Wrong option!`);
  }
@@ -67,9 +70,18 @@ const _dealString = (str: string, opt: object = {}) => {
   return str;
 }
 
-// todo 写 API
-const _dealObject = (options: object) => {
-  const res = {};
+interface dealObjectOption {
+  [key: string]: any
+}
+/**
+ * 处理对象传入
+ * @param options 选项
+ * @returns result
+ */
+const _dealObject = (options: dealObjectOption) => {
+  const res: {
+    [name: string]: string
+  } = {};
   Object.keys(options).forEach(key => {
     const val = options[key];
     const opt = _parseOptions(key, val);
