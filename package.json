@@ -4,6 +4,12 @@
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "exports": {
     "require": "./dist/index.js",
     "import": "./dist/index.mjs"
