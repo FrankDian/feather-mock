@@ -38,7 +38,7 @@ const char = () => {
 interface stringOption {
   min?: number | string; // 最短长度
   max?: number | string; // 最大长度
-  len?: number | string; // 固定长度（优先级高）
+  len?: number; // 固定长度（优先级高）
 }
 
 /**
@@ -61,21 +61,27 @@ const string = (opt: stringOption): string => {
  * @returns length
  */
 const _getLength = (opt: stringOption): number => {
-  let { min = STRING_MIN_LEN, max = STRING_MAX_LEN, len } = opt;
-  min = parseInt('' + min, 10);
-  max = parseInt('' + max, 10);
-  len = parseInt('' + len, 10);
+  let { min = STRING_MIN_LEN, max = STRING_MAX_LEN, len = '' } = opt;
+  len = parseInt(len.toString(), 10);
+  
   // 校验长度
-  if ( typeof len !== 'undefined'
-    && _.isInteger(len)
-    && len >= STRING_MIN_LEN
-    && len <= STRING_MAX_LEN
-  ) {
-    return len;
+  if ( typeof len !== 'undefined' && _.isInteger(len)) {
+    if(len >= STRING_MIN_LEN && len <= STRING_MAX_LEN) {
+      return len;
+    } else {
+      console.error('len值无效');
+    }
   }
 
+  min = parseInt('' + min, 10);
+  max = parseInt('' + max, 10);
   if (!_.isInteger(max) || !max || max > STRING_MAX_LEN) max = STRING_MAX_LEN;
   if (!_.isInteger(min) || !min || min < STRING_MIN_LEN) min = STRING_MIN_LEN;
+  if (max < min) {
+    min = STRING_MIN_LEN;
+    max = STRING_MAX_LEN;
+    console.error('传入的参数非法：min 大于 max，使用默认值');
+  }
   return integer({min, max});
 }
 

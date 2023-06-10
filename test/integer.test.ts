@@ -45,7 +45,7 @@ describe('integer params', () => {
   })
 })
 
-describe('wrong params', () => { 
+describe('wrong params', () => {
   it('最小值错误，重置为默认值', () => {
     const min = Number.MIN_SAFE_INTEGER - 1;
     const int2 = Mock('@integer|min=' + min);
