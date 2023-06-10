@@ -2,7 +2,6 @@ import { it, expect } from 'vitest';
 import FMock from '../src/index';
 import { STRING_MAX_LEN, STRING_MIN_LEN } from '../src/utils/const';
 
-FMock.setEnv('NODE_ENV', 'development');
 const Mock = FMock.mock;
 
 // function type
@@ -12,6 +11,8 @@ it('string type', () => {
 
 // test params
 it('string params', () => {
+  expect(FMock.mock('plainString')).toEqual('plainString');
+
   const str1 = Mock('@string');
   expect(str1.length).toBeLessThanOrEqual(STRING_MAX_LEN);
   expect(str1.length).toBeGreaterThanOrEqual(STRING_MIN_LEN);

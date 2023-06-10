@@ -24,9 +24,9 @@ describe('test params', () => {
     expect(res1).toEqual([1, 2, 3]);
 
     const res2 = mock({
-      'arr': [1, 2]
+      'arr': []
     });
-    expect(res2.arr).toEqual([1, 2]);
+    expect(res2.arr).toEqual([]);
   });
 
   it('测试min 和 max', () => {
@@ -77,11 +77,34 @@ describe('测试错误参数传入', () => {
   });
 
   it('max传参错误', () => {
-    // 最大值范围
+    // 超过最大值范围
+    const count1 = ARRAY_MAX_COUNT + 1;
+    const res1 = mock({
+      [`arr|max=${count1}`]: [1]
+    });
+    expect(res1.arr.length).toBeLessThanOrEqual(ARRAY_MAX_COUNT * 1);
+    // 小于最小值
     const res2 = mock({
-      'arr|max=1001': [1]
+      'arr|max=-1': [1]
     });
     expect(res2.arr.length).toBeLessThanOrEqual(ARRAY_MAX_COUNT * 1);
+
+    const res3 = mock({
+      'arr|max=30&min=100': [1]
+    });
+    expect(res3.arr.length).toBeLessThanOrEqual(ARRAY_MAX_COUNT * 1);
+  });
+
+  it('count传参错误', () => {
+    const res1 = mock({
+      'arr|count=-1': [1, 2]
+    });
+    expect(res1.arr.length).toBeGreaterThanOrEqual(2 * ARRAY_MIN_COUNT);
+    // 超过最大值范围
+    const res2 = mock({
+      'arr|count=1001': [1, 2]
+    });
+    expect(res2.arr.length).toBeLessThanOrEqual(ARRAY_MAX_COUNT * 2);
   });
 
   it('无效传参会被忽略', () => {
