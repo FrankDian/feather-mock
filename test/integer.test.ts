@@ -1,6 +1,7 @@
 import { it, expect, describe } from 'vitest';
 import FMock from '../src/index';
 const Mock = FMock.mock;
+FMock.setEnv('NODE_ENV', 'development');
 
 describe('integer func type', () => { 
   it('integer type', () => {

@@ -1,6 +1,7 @@
 import { DATE_DEFAULT_FOMAT, STRING_MAX_LEN, STRING_MIN_LEN, TIME_DEFAULT_FOMAT } from '../utils/const';
 import _ from 'lodash';
 import dayjs from 'dayjs';
+import logger from 'src/utils/logger';
 
 interface integerOption {
   min?: number; // 最短长度
@@ -20,7 +21,7 @@ const integer = (opt?: integerOption): number => {
     min = Number.MIN_SAFE_INTEGER;
     max = Number.MAX_SAFE_INTEGER;
   }
-  console.info('最大最小值分别为：', min , ' ', max);
+  logger('最大最小值分别为：' + min  + ' ' + max);
   return Math.round(Math.random() * (max - min) + min);
 };
 

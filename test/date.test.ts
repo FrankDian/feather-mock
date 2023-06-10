@@ -1,6 +1,7 @@
 import { it, describe, expectTypeOf, expect } from 'vitest';
 import FMock from '../src/index';
 const Mock = FMock.mock;
+FMock.setEnv('NODE_ENV', 'development');
 
 describe('测试日期', () => { 
   it('date func type', () => {
