@@ -5,29 +5,35 @@ import _ from 'lodash';
 
 export const mock = (options: any): any => {
   const type = getType(options);
-  let res;
-  switch (type) {
-    case 'string':
-      res = _dealString(options);
-      break;
-    case 'object':
-      res = _dealObject(options);
-      break;
-    case 'array':
-      res = _dealArray({raw: options});
-      break;
-    case 'function':
-      res = options.call();
-      break;
-    case 'null':
-    case 'undefined':
-      res = type;
-    break;
-    default:
-      res = options;
-      break;
+  if(rawDealMap[type]) {
+    return rawDealMap[type](options);
   }
-  return res;
+  return options;
+}
+
+interface typeDealMapInterface {
+  [key: string]: any
+}
+
+const rawDealMap: typeDealMapInterface = {
+  string:_dealString,
+  object: _dealObject,
+  array: _dealRawArray,
+  function: _dealRawFunc,
+  null: _dealBlankType,
+  undefined:_dealBlankType,
+}
+
+function _dealRawFunc (options: Function) {
+  return options.call(null);
+}
+
+function _dealRawArray(options: Array<any>) {
+  return _dealArray({raw: options});
+}
+
+function _dealBlankType(options: null | undefined) {
+  return getType(options);
 }
 
 interface defineOption {
@@ -59,9 +65,13 @@ export const define = (option: defineOption): void => {
  * @param opt 参数
  * @returns result
  */
-const _dealString = (str: string, opt: object = {}) => {
+function _dealString(str: string, option?: object) {
+  if(!option) option = {};
   if(str.startsWith('@')) {
-    const opt = _parseOptions(str.substring(1), '');
+    const opt = {
+      ..._parseOptions(str.substring(1), ''),
+      ...option
+    };
     const { name } = opt;
     if(Random[name]) {
       return Random[name](opt);
@@ -78,7 +88,7 @@ interface dealObjectOption {
  * @param options 选项
  * @returns result
  */
-const _dealObject = (options: dealObjectOption) => {
+function _dealObject (options: dealObjectOption) {
   const res: {
     [name: string]: string
   } = {};
@@ -87,26 +97,37 @@ const _dealObject = (options: dealObjectOption) => {
     const opt = _parseOptions(key, val);
     const { name } = opt;
     const type = getType(options[key]);
-    let actualVal;
-    switch (type) {
-      case 'string':
-        actualVal = _dealString(val, opt);
-        break;
-      case 'object':
-        actualVal = _dealObject(val);
-        break;
-      case 'array':
-        actualVal = _dealArray(opt);
-        break;
-      case 'function':
-        actualVal = val.call(null, opt);
-        break;
-      default:
-        // number boolean undefined null
-        actualVal = opt.raw;
-        break;
+    if(objectDealMap[type]) {
+      res[name] = objectDealMap[type](key, val);
+    } else {
+      res[name] = val;
     }
-    res[name] = actualVal;
   })
   return res;
+}
+
+const objectDealMap: typeDealMapInterface = {
+  string:_dealObjectString,
+  object: _dealObjectObject,
+  array: _dealObjectArray,
+  function: _dealObjectFunc,
+}
+
+function _dealObjectString(key:string, val: string) {
+  const opt = _parseOptions(key, val);
+  return _dealString(val, opt);
+}
+
+function _dealObjectObject(key:string, val: object) {
+  return _dealObject(val);
+}
+
+function _dealObjectArray(key:string, val: Array<any>) {
+  const opt = _parseOptions(key, val);
+  return _dealArray(opt);
+}
+
+function _dealObjectFunc(key:string, val: Function) {
+  const opt = _parseOptions(key, val);
+  return val.call(null, opt);
 }
