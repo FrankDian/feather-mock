@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import logger from 'src/utils/logger';
 
 interface integerOption {
-  min?: number; // 最短长度
-  max?: number; // 最大长度
+  min?: string | number; // 最短长度
+  max?: string | number; // 最大长度
 }
 
 /**
@@ -15,6 +15,8 @@ interface integerOption {
  */
 const integer = (opt?: integerOption): number => {
   let { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER } = opt || {};
+  min = parseInt(String(min), 10);
+  max = parseInt(String(max), 10);
   if(min < Number.MIN_SAFE_INTEGER) min = Number.MIN_SAFE_INTEGER;
   if(max > Number.MAX_SAFE_INTEGER) max = Number.MAX_SAFE_INTEGER;
   if(min > max) {

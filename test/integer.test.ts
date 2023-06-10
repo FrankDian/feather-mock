@@ -28,12 +28,20 @@ describe('integer params', () => {
   })
 
   it('设置范围', () => {
-    const int3 = Mock('@integer|min=10&max=100');
-    expect(int3).toBeGreaterThanOrEqual(10);
+    const int1 = Mock('@integer|min=10&max=13');
+    expect(int1).toBeGreaterThanOrEqual(10);
+    expect(int1).toBeLessThanOrEqual(13);
+
+    const int2 = Mock('@integer|min=-100&max=100');
+    expect(int2).toBeGreaterThanOrEqual(-100);
+    expect(int2).toBeLessThanOrEqual(100);
+
+    const int3 = Mock('@integer|min=-1000&max=+100');
+    expect(int3).toBeGreaterThanOrEqual(-1000);
     expect(int3).toBeLessThanOrEqual(100);
 
-    const int1 = Mock('@integer|min=100&max=100');
-    expect(int1).toBe(100);
+    const int4 = Mock('@integer|min=100&max=100');
+    expect(int4).toBe(100);
   })
 })
 
