@@ -56,6 +56,7 @@ export const define = (option: defineOption): void => {
      throw new Error(`Definition for ${key} is not a funciton!`);
    }
    Random[key] = option[key];
+   console.info(`${key} function register success!`);
  })
 }
 
