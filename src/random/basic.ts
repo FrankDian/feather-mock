@@ -1,7 +1,6 @@
 import { DATE_DEFAULT_FOMAT, STRING_MAX_LEN, STRING_MIN_LEN, TIME_DEFAULT_FOMAT } from '../utils/const';
 import _ from 'lodash';
 import dayjs from 'dayjs';
-import logger from 'src/utils/logger';
 
 interface integerOption {
   min?: string | number; // 最短长度
@@ -13,8 +12,8 @@ interface integerOption {
  * @param min 最小值
  * @param max 最大值
  */
-const integer = (opt?: integerOption): number => {
-  let { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER } = opt || {};
+const integer = (opt: integerOption): number => {
+  let { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER } = opt;
   min = parseInt(String(min), 10);
   max = parseInt(String(max), 10);
   if(min < Number.MIN_SAFE_INTEGER) min = Number.MIN_SAFE_INTEGER;
@@ -47,8 +46,8 @@ interface stringOption {
  * @param opt options
  * @returns string
  */
-const string = (opt?: stringOption): string => {
-  const strLen = _getLength(opt || {});
+const string = (opt: stringOption): string => {
+  const strLen = _getLength(opt);
   let res = '';
   for (let i = 0; i < strLen; i++) {
     res += char();

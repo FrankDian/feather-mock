@@ -21,7 +21,11 @@ describe('mock 复杂数据类型', () => {
     })).toBeTypeOf('object');
   })
 
-  it('function带参数', () => {
+  it('简单function', () => {
+    expect(FMock.mock(function() { return 'simple function'})).toEqual('simple function');
+  })
+
+  it('object 中 function带参数', () => {
     expect(FMock.mock({
       'func1|param1=hello&param2=world': function({param1, param2}) {
         return param1 + ' ' + param2;
@@ -31,7 +35,7 @@ describe('mock 复杂数据类型', () => {
     });
   });
 
-  it('function不带参数', () => {
+  it('object 中 function不带参数', () => {
     expect(FMock.mock({
       'func1': function() {
         return 'resutl';
