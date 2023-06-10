@@ -13,10 +13,15 @@ interface integerOption {
  * @param max 最大值
  */
 const integer = (opt?: integerOption): number => {
-  const { min, max } = opt || {};
-  const minVal = typeof min !== 'undefined' ? parseInt(min.toString(), 10) : Number.MIN_SAFE_INTEGER;
-  const maxVal = typeof max !== 'undefined' ? parseInt(max.toString(), 10) : Number.MAX_SAFE_INTEGER;
-  return Math.round(Math.random() * (maxVal - minVal) + minVal);
+  let { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER } = opt || {};
+  if(min < Number.MIN_SAFE_INTEGER) min = Number.MIN_SAFE_INTEGER;
+  if(max > Number.MAX_SAFE_INTEGER) max = Number.MAX_SAFE_INTEGER;
+  if(min > max) {
+    min = Number.MIN_SAFE_INTEGER;
+    max = Number.MAX_SAFE_INTEGER;
+  }
+  console.info('最大最小值分别为：', min , ' ', max);
+  return Math.round(Math.random() * (max - min) + min);
 };
 
 /**
