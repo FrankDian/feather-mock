@@ -1,5 +1,5 @@
 import { it, describe, expectTypeOf, expect } from 'vitest';
-import FMock from '../src/index';
+import FMock from '../../src/index';
 
 const Mock = FMock.mock;
 

@@ -1,5 +1,5 @@
 import { it, expect, describe } from 'vitest';
-import FMock from '../src/index';
+import FMock from '../../src/index';
 const Mock = FMock.mock;
 
 describe('integer func type', () => { 
