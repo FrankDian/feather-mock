@@ -1,3 +1,4 @@
+import logger from "src/utils/logger";
 import Basic from ".";
 
 const phone = function() {
@@ -8,6 +9,7 @@ const phone = function() {
   for (let i = 0; i < 9; i++) {
     res += Basic.integer({ min: 0, max: 9 });
   }
+  logger.debug('生成手机号：' + res);
   return res;
 }
 

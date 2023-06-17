@@ -3,7 +3,6 @@ import FMock from '../src/index';
 const Mock = FMock.mock;
 
 
-// function type
 it('phone type', () => {
   expect(Mock('@phone')).toBeTypeOf('string');
 });

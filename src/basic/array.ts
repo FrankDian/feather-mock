@@ -34,7 +34,9 @@ function getArrayCount(opt: arrayOpt) {
     logger.error(`最大值大于限制${ARRAY_MAX_COUNT}, 使用默认值${ARRAY_MAX_COUNT}`);
   }
   if(maxVal < minVal) {
-    throw new Error('传入的参数非法：min 大于 max');
+    minVal = ARRAY_MIN_COUNT;
+    maxVal = ARRAY_MAX_COUNT;
+    console.error('传入的参数非法：min 大于 max，使用默认值');
   }
   return Basic.integer({
     min: minVal,
