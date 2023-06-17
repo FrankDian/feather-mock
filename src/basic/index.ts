@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import integer from './integer';
 import string from './string';
 import { date, time } from './date';
