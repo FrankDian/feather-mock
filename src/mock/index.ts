@@ -1,10 +1,8 @@
-import logger from 'src/utils/logger';
-import Random from '../basic';
+import Basic from '../basic';
 import { getType, _parseOptions } from '../utils/utils';
-import _dealArray from './array';
 import _ from 'lodash';
 
-export const mock = (options: any): any => {
+const mock = (options: any): any => {
   const type = getType(options);
   if(rawDealMap[type]) {
     return rawDealMap[type](options);
@@ -30,35 +28,11 @@ function _dealRawFunc (options: Function) {
 }
 
 function _dealRawArray(options: Array<any>) {
-  return _dealArray({raw: options});
+  return Basic.array({raw: options});
 }
 
 function _dealBlankType(options: null | undefined) {
   return getType(options);
-}
-
-interface defineOption {
-  [key: string]: Function
-}
-/**
-* 注册自定义函数
-* @param option 键值对形式，值必须为函数
-* @returns void
-*/
-export const define = (option: defineOption): void => {
- if(!_.isPlainObject(option)) {
-   throw new Error(`Wrong option!`);
- }
- Object.keys(option).forEach(key => {
-   if(Random[key]) {
-     throw new Error(`${key} has already been defined!`);
-   }
-   if(!_.isFunction(option[key])) {
-     throw new Error(`Definition for ${key} is not a funciton!`);
-   }
-   Random[key] = option[key];
-   logger.debug(`${key} function register success!`);
- })
 }
 
 /**
@@ -75,8 +49,8 @@ function _dealString(str: string, option?: object) {
       ...option
     };
     const { name } = opt;
-    if(Random[name]) {
-      return Random[name](opt);
+    if(Basic[name]) {
+      return Basic[name](opt);
     }
   }
   return str;
@@ -126,10 +100,17 @@ function _dealObjectObject(key:string, val: object) {
 
 function _dealObjectArray(key:string, val: Array<any>) {
   const opt = _parseOptions(key, val);
-  return _dealArray(opt);
+  return Basic.array(opt);
 }
 
 function _dealObjectFunc(key:string, val: Function) {
   const opt = _parseOptions(key, val);
   return val.call(null, opt);
+}
+
+const define = Basic.define;
+
+export {
+  mock,
+  define
 }
