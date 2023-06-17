@@ -13,8 +13,8 @@ interface stringOption {
  * @param opt options
  * @returns string
  */
-const string = (opt?: stringOption): string => {
-  const strLen = _getLength(opt || {});
+const string = (opt: stringOption): string => {
+  const strLen = _getLength(opt);
   let res = '';
   for (let i = 0; i < strLen; i++) {
     res += char();
@@ -53,6 +53,10 @@ const _getLength = (opt: stringOption): number => {
 
   if (!_.isInteger(max) || !max || max > STRING_MAX_LEN) max = STRING_MAX_LEN;
   if (!_.isInteger(min) || !min || min < STRING_MIN_LEN) min = STRING_MIN_LEN;
+  if(min > max) {
+    console.error('传参无效');
+    return integer({ min: STRING_MIN_LEN, max: STRING_MAX_LEN});
+  }
   return integer({min, max});
 }
 

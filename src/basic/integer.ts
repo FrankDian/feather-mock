@@ -10,8 +10,8 @@ interface integerOption {
  * @param min 最小值
  * @param max 最大值
  */
-const integer = (opt?: integerOption): number => {
-  let { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER } = opt || {};
+const integer = (opt: integerOption): number => {
+  let { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER } = opt;
   min = parseInt(String(min), 10);
   max = parseInt(String(max), 10);
   if(min < Number.MIN_SAFE_INTEGER) min = Number.MIN_SAFE_INTEGER;

@@ -1,3 +1,3 @@
 export const getEnv = (key: string): string => {
-  return process.env[key] || '';
+  return process.env[key];
 }
