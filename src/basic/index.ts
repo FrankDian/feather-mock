@@ -1,26 +1,25 @@
 import _ from 'lodash';
-import {
-  integer,
-  string,
-  boolean,
-  date,
-  time,
-} from './basic';
+import integer from './integer';
+import string from './string';
+import { date, time } from './date';
+import boolean from './boolean';
 import email from './email';
 import phone from './phone';
+import array from './array';
 
-interface RandomInterface {
+interface BasicInterface {
   [key: string]: Function,
 };
 
-const Random: RandomInterface = {
+const Basic: BasicInterface = {
   integer,
   string,
   boolean,
   date,
   time,
   email,
-  phone
+  phone,
+  array
 };
 
-export default Random;
+export default Basic;

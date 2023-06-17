@@ -1,4 +1,4 @@
-import { getEnv } from "../mock/env"
+import { getEnv } from "./env"
 
 const debug = (info: string): void => {
   if(getEnv('NODE_ENV') === 'development') {

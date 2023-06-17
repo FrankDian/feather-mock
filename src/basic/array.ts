@@ -1,5 +1,5 @@
-import { mock } from "./index";
-import Random from "../basic";
+import { mock } from "../mock/index";
+import Basic from "./index";
 import { ARRAY_DEFAULT_COUNT, ARRAY_MAX_COUNT, ARRAY_MIN_COUNT } from "../utils/const";
 import logger from "src/utils/logger";
 
@@ -36,7 +36,7 @@ function getArrayCount(opt: arrayOpt) {
   if(maxVal < minVal) {
     throw new Error('传入的参数非法：min 大于 max');
   }
-  return Random.integer({
+  return Basic.integer({
     min: minVal,
     max: maxVal
   });
@@ -47,7 +47,7 @@ function getArrayCount(opt: arrayOpt) {
  * @param opt option
  * @returns result
  */
-const _dealArray = function(opt: arrayOpt) {
+const array = function(opt: arrayOpt) {
   // 参数处理
   const { raw = [] } = opt;
   if(raw.length === 0) return [];
@@ -71,4 +71,4 @@ const genArray = (raw: Array<any>) => {
   return RowRes;
 }
 
-export default _dealArray;
+export default array;
