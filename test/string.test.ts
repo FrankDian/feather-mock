@@ -2,7 +2,6 @@ import { it, expect } from 'vitest';
 import FMock from '../src/index';
 import { STRING_MAX_LEN, STRING_MIN_LEN } from '../src/utils/const';
 
-FMock.setEnv('NODE_ENV', 'development');
 const Mock = FMock.mock;
 
 // function type

@@ -1,6 +1,7 @@
 import { mock } from "./index";
-import Random from "../random";
+import Random from "../basic";
 import { ARRAY_DEFAULT_COUNT, ARRAY_MAX_COUNT, ARRAY_MIN_COUNT } from "../utils/const";
+import logger from "src/utils/logger";
 
 interface arrayOpt {
   count?: number,
@@ -15,7 +16,7 @@ function getArrayCount(opt: arrayOpt) {
   let countVal = parseInt(count.toString(), 10);
   if(countVal < ARRAY_MIN_COUNT || countVal > ARRAY_MAX_COUNT) {
     countVal = ARRAY_DEFAULT_COUNT;
-    console.error(`count值无效，使用默认值${ARRAY_DEFAULT_COUNT}`);
+    logger.error(`count值无效，使用默认值${ARRAY_DEFAULT_COUNT}`);
   }
   if(typeof opt.min === 'undefined' && typeof opt.max === 'undefined') {
     return countVal;
@@ -24,13 +25,13 @@ function getArrayCount(opt: arrayOpt) {
   let minVal = parseInt(min.toString(), 10);
   if(minVal < ARRAY_MIN_COUNT) {
     minVal = ARRAY_DEFAULT_COUNT;
-    console.error(`最小值小于限制${ARRAY_MIN_COUNT}, 使用默认值${ARRAY_MIN_COUNT}`);
+    logger.error(`最小值小于限制${ARRAY_MIN_COUNT}, 使用默认值${ARRAY_MIN_COUNT}`);
   }
 
   let maxVal = parseInt(max.toString(), 10);
   if(maxVal > ARRAY_MAX_COUNT) {
     maxVal = ARRAY_MAX_COUNT;
-    console.error(`最大值大于限制${ARRAY_MAX_COUNT}, 使用默认值${ARRAY_MAX_COUNT}`);
+    logger.error(`最大值大于限制${ARRAY_MAX_COUNT}, 使用默认值${ARRAY_MAX_COUNT}`);
   }
   if(maxVal < minVal) {
     throw new Error('传入的参数非法：min 大于 max');

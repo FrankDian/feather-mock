@@ -23,7 +23,6 @@ const integer = (opt?: integerOption): number => {
     min = Number.MIN_SAFE_INTEGER;
     max = Number.MAX_SAFE_INTEGER;
   }
-  logger('最大最小值分别为：' + min  + ' ' + max);
   return Math.round(Math.random() * (max - min) + min);
 };
 

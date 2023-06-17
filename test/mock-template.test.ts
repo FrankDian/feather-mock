@@ -1,6 +1,5 @@
 import { it, expect } from 'vitest';
 import FMock from '../src/index';
-FMock.setEnv('NODE_ENV', 'development');
 
 // function type
 it('mock template', () => {

@@ -1,5 +1,5 @@
 import logger from 'src/utils/logger';
-import Random from '../random';
+import Random from '../basic';
 import { getType, _parseOptions } from '../utils/utils';
 import _dealArray from './array';
 import _ from 'lodash';
@@ -57,7 +57,7 @@ export const define = (option: defineOption): void => {
      throw new Error(`Definition for ${key} is not a funciton!`);
    }
    Random[key] = option[key];
-   logger(`${key} function register success!`);
+   logger.debug(`${key} function register success!`);
  })
 }
 
