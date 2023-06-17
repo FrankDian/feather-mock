@@ -1,34 +1,35 @@
 import Basic from '../basic';
 import { _parseOptions } from '../utils/parse';
+import { getType } from '../utils/typeof';
 import _ from 'lodash';
 
 const mock = (options: any): any => {
   const type = getType(options);
-  if(rawDealMap[type]) {
+  if (rawDealMap[type]) {
     return rawDealMap[type](options);
   }
   return options;
-}
+};
 
 interface typeDealMapInterface {
-  [key: string]: any
+  [key: string]: any;
 }
 
 const rawDealMap: typeDealMapInterface = {
-  string:_dealString,
+  string: _dealString,
   object: _dealObject,
   array: _dealRawArray,
   function: _dealRawFunc,
   null: _dealBlankType,
-  undefined:_dealBlankType,
-}
+  undefined: _dealBlankType,
+};
 
-function _dealRawFunc (options: Function) {
+function _dealRawFunc(options: Function) {
   return options.call(null);
 }
 
 function _dealRawArray(options: Array<any>) {
-  return Basic.array({raw: options});
+  return Basic.array({ raw: options });
 }
 
 function _dealBlankType(options: null | undefined) {
@@ -42,14 +43,14 @@ function _dealBlankType(options: null | undefined) {
  * @returns result
  */
 function _dealString(str: string, option?: object) {
-  if(!option) option = {};
-  if(str.startsWith('@')) {
+  if (!option) option = {};
+  if (str.startsWith('@')) {
     const opt = {
       ..._parseOptions(str.substring(1), ''),
-      ...option
+      ...option,
     };
     const { name } = opt;
-    if(Basic[name]) {
+    if (Basic[name]) {
       return Basic[name](opt);
     }
   }
@@ -57,76 +58,57 @@ function _dealString(str: string, option?: object) {
 }
 
 interface dealObjectOption {
-  [key: string]: any
+  [key: string]: any;
 }
 /**
  * 处理对象传入
  * @param options 选项
  * @returns result
  */
-function _dealObject (options: dealObjectOption) {
+function _dealObject(options: dealObjectOption) {
   const res: {
-    [name: string]: string
+    [name: string]: string;
   } = {};
   Object.keys(options).forEach(key => {
     const val = options[key];
     const opt = _parseOptions(key, val);
     const { name } = opt;
     const type = getType(options[key]);
-    if(objectDealMap[type]) {
+    if (objectDealMap[type]) {
       res[name] = objectDealMap[type](key, val);
     } else {
       res[name] = val;
     }
-  })
+  });
   return res;
 }
 
 const objectDealMap: typeDealMapInterface = {
-  string:_dealObjectString,
+  string: _dealObjectString,
   object: _dealObjectObject,
   array: _dealObjectArray,
   function: _dealObjectFunc,
-}
+};
 
-function _dealObjectString(key:string, val: string) {
+function _dealObjectString(key: string, val: string) {
   const opt = _parseOptions(key, val);
   return _dealString(val, opt);
 }
 
-function _dealObjectObject(key:string, val: object) {
+function _dealObjectObject(key: string, val: object) {
   return _dealObject(val);
 }
 
-function _dealObjectArray(key:string, val: Array<any>) {
+function _dealObjectArray(key: string, val: Array<any>) {
   const opt = _parseOptions(key, val);
   return Basic.array(opt);
 }
 
-function _dealObjectFunc(key:string, val: Function) {
+function _dealObjectFunc(key: string, val: Function) {
   const opt = _parseOptions(key, val);
   return val.call(null, opt);
 }
 
-function getType(obj: any) {
-  // Array
-  // Function（它的 typeof 返回 "function"）
-  // Error
-  // Boolean
-  // Number
-  // String
-  // Date
-  // RegExp
-  if(obj === null || obj === undefined) {
-    return String(obj);
-  }
-  let res = Object.prototype.toString.call(obj).match(/\[object (\w+)\]/);
-  return (res as RegExpMatchArray)[1]?.toLowerCase();
-}
-
 const define = Basic.define;
 
-export {
-  mock,
-  define
-}
+export { mock, define };
