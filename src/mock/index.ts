@@ -1,5 +1,5 @@
 import Basic from '../basic';
-import { getType, _parseOptions } from '../utils/utils';
+import { _parseOptions } from '../utils/parse';
 import _ from 'lodash';
 
 const mock = (options: any): any => {
@@ -106,6 +106,22 @@ function _dealObjectArray(key:string, val: Array<any>) {
 function _dealObjectFunc(key:string, val: Function) {
   const opt = _parseOptions(key, val);
   return val.call(null, opt);
+}
+
+function getType(obj: any) {
+  // Array
+  // Function（它的 typeof 返回 "function"）
+  // Error
+  // Boolean
+  // Number
+  // String
+  // Date
+  // RegExp
+  if(obj === null || obj === undefined) {
+    return String(obj);
+  }
+  let res = Object.prototype.toString.call(obj).match(/\[object (\w+)\]/);
+  return (res as RegExpMatchArray)[1]?.toLowerCase();
 }
 
 const define = Basic.define;

@@ -1,4 +1,4 @@
-import logger from "src/utils/logger";
+import logger from "../utils/logger";
 import Basic from ".";
 
 const phone = function() {

@@ -1,4 +1,4 @@
-import { STRING_MAX_LEN, STRING_MIN_LEN } from "src/utils/const";
+import { STRING_MAX_LEN, STRING_MIN_LEN } from "../utils/string_const";
 import _ from "lodash";
 import integer from "./integer";
 

@@ -1,7 +1,7 @@
 import { mock } from "../mock/index";
 import Basic from "./index";
-import { ARRAY_DEFAULT_COUNT, ARRAY_MAX_COUNT, ARRAY_MIN_COUNT } from "../utils/const";
-import logger from "src/utils/logger";
+import { ARRAY_DEFAULT_COUNT, ARRAY_MAX_COUNT, ARRAY_MIN_COUNT } from "../utils/array_const";
+import logger from "../utils/logger";
 
 interface arrayOpt {
   count?: number,

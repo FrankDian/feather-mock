@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { DATE_DEFAULT_FOMAT, TIME_DEFAULT_FOMAT } from "src/utils/const";
+import { DATE_DEFAULT_FOMAT, TIME_DEFAULT_FOMAT } from "../utils/date_const";
 
 /**
  * 生成随机Date

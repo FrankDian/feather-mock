@@ -1,5 +1,5 @@
 import _ from "lodash";
-import logger from "src/utils/logger";
+import logger from "../utils/logger";
 import Basic, { registerAttr } from ".";
 
 interface defineOption {

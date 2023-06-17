@@ -1,6 +1,6 @@
 import { it, expect, describe } from 'vitest';
 import FMock from '../src/index';
-import { ARRAY_MAX_COUNT, ARRAY_MIN_COUNT } from 'src/utils/const';
+import { ARRAY_MAX_COUNT, ARRAY_MIN_COUNT } from '../src/utils/array_const';
 const mock = FMock.mock;
 
 describe('Normal function Test', () => {
